@@ -1,0 +1,38 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "vessel"
+version = "0.1.0"
+description = "Vessel segmentation dataset download & preprocessing tool"
+requires-python = ">=3.10"
+dependencies = [
+    "typer>=0.9",
+    "rich>=13.0",
+    "pyyaml>=6.0",
+    "pydantic>=2.0",
+    "requests>=2.28",
+    "tqdm>=4.65",
+    "SimpleITK>=2.3",
+    "nibabel>=5.0",
+    "numpy>=1.24",
+    "scipy>=1.10",
+    "scikit-image>=0.21",
+    "gdown>=4.7",
+]
+
+[project.optional-dependencies]
+kaggle = ["kaggle>=1.5"]
+all = ["vessel[kaggle]"]
+dev = ["pytest>=7.0", "pytest-cov", "ruff"]
+
+[project.scripts]
+vessel = "vessel.cli.app:app"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/vessel"]
+
+[tool.ruff]
+target-version = "py310"
+line-length = 100
