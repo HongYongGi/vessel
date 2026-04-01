@@ -1,0 +1,45 @@
+version: "1.0"
+
+dataset:
+  id: mmwhs
+  name: "MM-WHS"
+  description: "Multi-Modality Whole Heart Segmentation challenge - 7-class cardiac structure segmentation from CT and MRI. This config targets the CT subset."
+  paper: "https://doi.org/10.1109/TMI.2019.2900516"
+  license: "CC-BY-NC-SA 4.0"
+  tier: 1
+  body_region: cardiac
+  modality: CT
+  num_cases: 120
+  estimated_size_gb: 4.0
+
+source:
+  type: http
+  url: "https://mega.nz/folder/UNMF2YYI#1cqJVzo4p_wESv9P_pc8uA"
+  alt_url: "https://zenodo.org/records/3876351"
+  extract: zip
+
+format:
+  image_format: nifti
+  label_format: nifti
+  image_pattern: "ct_train/ct_train_*_image.nii.gz"
+  label_pattern: "ct_train/ct_train_*_label.nii.gz"
+
+labels:
+  type: multiclass
+  num_classes: 7
+  mapping:
+    1: left_ventricle
+    2: right_ventricle
+    3: left_atrium
+    4: right_atrium
+    5: myocardium
+    6: ascending_aorta
+    7: pulmonary_artery
+
+preprocess:
+  target_spacing: [1.0, 1.0, 1.0]
+  intensity_window:
+    center: 100.0
+    width: 500.0
+  crop_size: null
+  normalize: minmax

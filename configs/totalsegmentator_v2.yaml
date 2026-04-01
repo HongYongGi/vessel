@@ -1,0 +1,79 @@
+version: "1.0"
+
+dataset:
+  id: totalsegmentator_v2
+  name: "TotalSegmentator v2"
+  description: "TotalSegmentator v2 - Large-scale dataset with 117 anatomical structures including major vessels, segmented from CT scans. This config extracts vessel-related labels only."
+  paper: "https://arxiv.org/abs/2208.05868"
+  license: "CC-BY 4.0"
+  tier: 1
+  body_region: whole_body
+  modality: CT
+  num_cases: 1204
+  estimated_size_gb: 115.0
+
+source:
+  type: zenodo
+  record_id: "6802614"
+  filename: "Totalsegmentator_dataset_v201.zip"
+  extract: zip
+
+format:
+  image_format: nifti
+  label_format: nifti
+  image_pattern: "*/ct.nii.gz"
+  label_pattern: "*/segmentations/*.nii.gz"
+
+labels:
+  type: multi_file
+  num_classes: 18
+  mapping:
+    # TotalSegmentator stores each label as a separate binary NIfTI file.
+    # The integer keys below are the TotalSeg class indices used for
+    # combining into a single multiclass volume.
+    52: aorta
+    53: inferior_vena_cava
+    54: portal_and_splenic_vein
+    55: pulmonary_artery
+    56: left_internal_iliac_artery
+    57: right_internal_iliac_artery
+    58: hepatic_vessel
+    59: celiac_artery
+    60: superior_mesenteric_artery
+    61: left_renal_artery
+    62: right_renal_artery
+    63: superior_vena_cava
+    64: left_subclavian_artery
+    65: right_subclavian_artery
+    66: left_common_iliac_artery
+    67: right_common_iliac_artery
+    68: left_external_iliac_artery
+    69: right_external_iliac_artery
+  # Per-file label name mapping (TotalSeg stores labels as individual files)
+  file_mapping:
+    "aorta.nii.gz": aorta
+    "inferior_vena_cava.nii.gz": inferior_vena_cava
+    "portal_vein_and_splenic_vein.nii.gz": portal_and_splenic_vein
+    "pulmonary_artery.nii.gz": pulmonary_artery
+    "iliac_artery_left.nii.gz": left_internal_iliac_artery
+    "iliac_artery_right.nii.gz": right_internal_iliac_artery
+    "hepatic_vessel.nii.gz": hepatic_vessel
+    "celiac_trunk.nii.gz": celiac_artery
+    "superior_mesenteric_artery.nii.gz": superior_mesenteric_artery
+    "renal_artery_left.nii.gz": left_renal_artery
+    "renal_artery_right.nii.gz": right_renal_artery
+    "superior_vena_cava.nii.gz": superior_vena_cava
+    "subclavian_artery_left.nii.gz": left_subclavian_artery
+    "subclavian_artery_right.nii.gz": right_subclavian_artery
+    "common_iliac_artery_left.nii.gz": left_common_iliac_artery
+    "common_iliac_artery_right.nii.gz": right_common_iliac_artery
+    "external_iliac_artery_left.nii.gz": left_external_iliac_artery
+    "external_iliac_artery_right.nii.gz": right_external_iliac_artery
+
+preprocess:
+  target_spacing: [1.5, 1.5, 1.5]
+  intensity_window:
+    center: 300.0
+    width: 700.0
+  crop_size: null
+  normalize: minmax

@@ -1,0 +1,39 @@
+version: "1.0"
+
+dataset:
+  id: parse2022
+  name: "PARSE 2022"
+  description: "Pulmonary Artery Segmentation challenge 2022 - Pulmonary artery segmentation from CT scans."
+  paper: "https://arxiv.org/abs/2304.03708"
+  license: "CC-BY-NC 4.0"
+  tier: 1
+  body_region: thorax
+  modality: CT
+  num_cases: 200
+  estimated_size_gb: 12.0
+
+source:
+  type: grand_challenge
+  challenge: "parse2022"
+  url: "https://parse2022.grand-challenge.org/"
+  extract: zip
+
+format:
+  image_format: nifti
+  label_format: nifti
+  image_pattern: "train/image/*.nii.gz"
+  label_pattern: "train/label/*.nii.gz"
+
+labels:
+  type: binary
+  num_classes: 1
+  mapping:
+    1: pulmonary_artery
+
+preprocess:
+  target_spacing: [1.0, 1.0, 1.0]
+  intensity_window:
+    center: 100.0
+    width: 700.0
+  crop_size: null
+  normalize: minmax

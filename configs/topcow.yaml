@@ -1,0 +1,52 @@
+version: "1.0"
+
+dataset:
+  id: topcow
+  name: "TopCoW 2023"
+  description: "Topology-Aware Anatomical Segmentation of the Circle of Willis for CTA and MRA. Multi-class cerebrovascular segmentation challenge."
+  paper: "https://arxiv.org/abs/2312.17670"
+  license: "CC-BY-NC-SA 4.0"
+  tier: 1
+  body_region: head_neck
+  modality: CTA
+  num_cases: 140
+  estimated_size_gb: 8.0
+
+source:
+  type: grand_challenge
+  challenge: "topcow"
+  url: "https://topcow23.grand-challenge.org/"
+  extract: zip
+
+format:
+  image_format: nifti
+  label_format: nifti
+  image_pattern: "imagesTr/*.nii.gz"
+  label_pattern: "labelsTr/*.nii.gz"
+
+labels:
+  type: multiclass
+  num_classes: 14
+  mapping:
+    1: basilar_artery
+    2: right_posterior_cerebral_artery
+    3: left_posterior_cerebral_artery
+    4: right_internal_carotid_artery
+    5: left_internal_carotid_artery
+    6: right_middle_cerebral_artery
+    7: left_middle_cerebral_artery
+    8: right_anterior_cerebral_artery
+    9: left_anterior_cerebral_artery
+    10: anterior_communicating_artery
+    11: right_posterior_communicating_artery
+    12: left_posterior_communicating_artery
+    13: right_vertebral_artery
+    14: left_vertebral_artery
+
+preprocess:
+  target_spacing: [0.5, 0.5, 0.5]
+  intensity_window:
+    center: 40.0
+    width: 400.0
+  crop_size: null
+  normalize: minmax

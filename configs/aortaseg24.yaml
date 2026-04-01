@@ -1,0 +1,61 @@
+version: "1.0"
+
+dataset:
+  id: aortaseg24
+  name: "AortaSeg24"
+  description: "AortaSeg24 - Multi-class aorta segmentation challenge with 23 classes covering the full aorta and its major branches from CTA scans."
+  paper: "https://arxiv.org/abs/2406.21467"
+  license: "CC-BY 4.0"
+  tier: 1
+  body_region: thoracoabdominal
+  modality: CTA
+  num_cases: 100
+  estimated_size_gb: 10.0
+
+source:
+  type: zenodo
+  record_id: "10991212"
+  filename: "AortaSeg24.zip"
+  extract: zip
+
+format:
+  image_format: nifti
+  label_format: nifti
+  image_pattern: "imagesTr/*.nii.gz"
+  label_pattern: "labelsTr/*.nii.gz"
+
+labels:
+  type: multiclass
+  num_classes: 23
+  mapping:
+    1: ascending_aorta
+    2: aortic_arch
+    3: descending_aorta
+    4: abdominal_aorta
+    5: left_common_iliac_artery
+    6: right_common_iliac_artery
+    7: innominate_artery
+    8: left_common_carotid_artery
+    9: left_subclavian_artery
+    10: right_common_carotid_artery
+    11: right_subclavian_artery
+    12: celiac_artery
+    13: superior_mesenteric_artery
+    14: left_renal_artery
+    15: right_renal_artery
+    16: left_external_iliac_artery
+    17: right_external_iliac_artery
+    18: left_internal_iliac_artery
+    19: right_internal_iliac_artery
+    20: aortic_valve
+    21: left_common_carotid_artery
+    22: left_vertebral_artery
+    23: right_vertebral_artery
+
+preprocess:
+  target_spacing: [1.0, 1.0, 1.0]
+  intensity_window:
+    center: 300.0
+    width: 700.0
+  crop_size: null
+  normalize: minmax

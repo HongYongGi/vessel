@@ -1,0 +1,168 @@
+version: "1.0"
+
+taxonomy:
+  # === Aorta ===
+  aorta: {id: 1}
+  ascending_aorta: {id: 2}
+  aortic_arch: {id: 3}
+  descending_aorta: {id: 4}
+  abdominal_aorta: {id: 5}
+
+  # === Aortic branches ===
+  innominate_artery: {id: 10, aliases: ["brachiocephalic_trunk"]}
+  left_common_carotid_artery: {id: 11}
+  right_common_carotid_artery: {id: 12}
+  left_subclavian_artery: {id: 13}
+  right_subclavian_artery: {id: 14}
+  celiac_artery: {id: 15, aliases: ["celiac_trunk"]}
+  superior_mesenteric_artery: {id: 16, aliases: ["SMA"]}
+  left_renal_artery: {id: 17}
+  right_renal_artery: {id: 18}
+  left_common_iliac_artery: {id: 19}
+  right_common_iliac_artery: {id: 20}
+  left_external_iliac_artery: {id: 21}
+  right_external_iliac_artery: {id: 22}
+  left_internal_iliac_artery: {id: 23}
+  right_internal_iliac_artery: {id: 24}
+
+  # === Coronary ===
+  coronary_artery: {id: 30}
+  left_anterior_descending: {id: 31, aliases: ["LAD"]}
+  left_circumflex: {id: 32, aliases: ["LCx"]}
+  right_coronary_artery: {id: 33, aliases: ["RCA"]}
+  left_main_coronary: {id: 34, aliases: ["LM"]}
+
+  # === Cerebral (Circle of Willis) ===
+  basilar_artery: {id: 40, aliases: ["BA"]}
+  right_internal_carotid_artery: {id: 41, aliases: ["R-ICA"]}
+  left_internal_carotid_artery: {id: 42, aliases: ["L-ICA"]}
+  right_middle_cerebral_artery: {id: 43, aliases: ["R-MCA"]}
+  left_middle_cerebral_artery: {id: 44, aliases: ["L-MCA"]}
+  right_anterior_cerebral_artery: {id: 45, aliases: ["R-ACA"]}
+  left_anterior_cerebral_artery: {id: 46, aliases: ["L-ACA"]}
+  right_posterior_cerebral_artery: {id: 47, aliases: ["R-PCA"]}
+  left_posterior_cerebral_artery: {id: 48, aliases: ["L-PCA"]}
+  anterior_communicating_artery: {id: 49, aliases: ["ACoA"]}
+  right_posterior_communicating_artery: {id: 50, aliases: ["R-PCoA"]}
+  left_posterior_communicating_artery: {id: 51, aliases: ["L-PCoA"]}
+  right_vertebral_artery: {id: 52}
+  left_vertebral_artery: {id: 53}
+
+  # === Pulmonary ===
+  pulmonary_artery: {id: 60}
+  pulmonary_trunk: {id: 61}
+  right_pulmonary_artery: {id: 62}
+  left_pulmonary_artery: {id: 63}
+  pulmonary_vein: {id: 64}
+
+  # === Veins ===
+  superior_vena_cava: {id: 70, aliases: ["SVC"]}
+  inferior_vena_cava: {id: 71, aliases: ["IVC"]}
+  portal_vein: {id: 72}
+  splenic_vein: {id: 73}
+  portal_and_splenic_vein: {id: 74}
+
+  # === Hepatic vessels ===
+  hepatic_vessel: {id: 80}
+  hepatic_artery: {id: 81}
+  hepatic_vein: {id: 82}
+
+  # === Cardiac structures ===
+  left_atrium: {id: 90, aliases: ["LA"]}
+  right_atrium: {id: 91, aliases: ["RA"]}
+  left_ventricle: {id: 92, aliases: ["LV"]}
+  right_ventricle: {id: 93, aliases: ["RV"]}
+  myocardium: {id: 94, aliases: ["LV_myo"]}
+  aortic_valve: {id: 95}
+  mitral_valve: {id: 96}
+  pulmonary_valve: {id: 97}
+  tricuspid_valve: {id: 98}
+
+  # === Pathology ===
+  true_lumen: {id: 100}
+  false_lumen: {id: 101}
+  false_lumen_thrombus: {id: 102}
+  aneurysm: {id: 103}
+  tumor: {id: 104}
+
+# Per-dataset mapping: dataset_label_value -> unified_taxonomy_name
+dataset_mappings:
+  msd_hepatic_vessel:
+    1: hepatic_vessel
+    2: tumor
+
+  imagecas:
+    1: coronary_artery
+
+  parse2022:
+    1: pulmonary_artery
+
+  totalsegmentator_v2:
+    52: aorta
+    53: inferior_vena_cava
+    54: portal_and_splenic_vein
+    55: pulmonary_artery
+    56: left_internal_iliac_artery
+    57: right_internal_iliac_artery
+    58: hepatic_vessel
+    59: celiac_artery
+    60: superior_mesenteric_artery
+    61: left_renal_artery
+    62: right_renal_artery
+    63: superior_vena_cava
+    64: left_subclavian_artery
+    65: right_subclavian_artery
+    66: left_common_iliac_artery
+    67: right_common_iliac_artery
+    68: left_external_iliac_artery
+    69: right_external_iliac_artery
+
+  topcow:
+    1: basilar_artery
+    2: right_posterior_cerebral_artery
+    3: left_posterior_cerebral_artery
+    4: right_internal_carotid_artery
+    5: left_internal_carotid_artery
+    6: right_middle_cerebral_artery
+    7: left_middle_cerebral_artery
+    8: right_anterior_cerebral_artery
+    9: left_anterior_cerebral_artery
+    10: anterior_communicating_artery
+    11: right_posterior_communicating_artery
+    12: left_posterior_communicating_artery
+    13: right_vertebral_artery
+    14: left_vertebral_artery
+
+  aortaseg24:
+    1: ascending_aorta
+    2: aortic_arch
+    3: descending_aorta
+    4: abdominal_aorta
+    5: left_common_iliac_artery
+    6: right_common_iliac_artery
+    7: innominate_artery
+    8: left_common_carotid_artery
+    9: left_subclavian_artery
+    10: right_common_carotid_artery
+    11: right_subclavian_artery
+    12: celiac_artery
+    13: superior_mesenteric_artery
+    14: left_renal_artery
+    15: right_renal_artery
+    16: left_external_iliac_artery
+    17: right_external_iliac_artery
+    18: left_internal_iliac_artery
+    19: right_internal_iliac_artery
+    20: aortic_valve
+    21: left_common_carotid_artery
+    22: left_vertebral_artery
+    23: right_vertebral_artery
+
+  mmwhs:
+    1: left_ventricle
+    2: right_ventricle
+    3: left_atrium
+    4: right_atrium
+    5: myocardium
+    6: ascending_aorta
+    7: pulmonary_artery

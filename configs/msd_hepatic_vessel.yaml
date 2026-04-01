@@ -1,0 +1,40 @@
+version: "1.0"
+
+dataset:
+  id: msd_hepatic_vessel
+  name: "MSD Task08 Hepatic Vessel"
+  description: "Medical Segmentation Decathlon Task 08 - Hepatic vessel and tumor segmentation from portal venous phase CT scans."
+  paper: "https://arxiv.org/abs/1902.09063"
+  license: "CC-BY-SA 4.0"
+  tier: 1
+  body_region: abdomen
+  modality: CT
+  num_cases: 443
+  estimated_size_gb: 15.0
+
+source:
+  type: gdrive
+  file_id: "1jyVGUGyxTJ1AOXFEJl0SE3Y4T7IcfIDJ"
+  filename: "Task08_HepaticVessel.tar"
+  extract: tar
+
+format:
+  image_format: nifti
+  label_format: nifti
+  image_pattern: "imagesTr/hepaticvessel_*.nii.gz"
+  label_pattern: "labelsTr/hepaticvessel_*.nii.gz"
+
+labels:
+  type: multiclass
+  num_classes: 2
+  mapping:
+    1: hepatic_vessel
+    2: tumor
+
+preprocess:
+  target_spacing: [0.8, 0.8, 1.5]
+  intensity_window:
+    center: 80.0
+    width: 360.0
+  crop_size: null
+  normalize: minmax
