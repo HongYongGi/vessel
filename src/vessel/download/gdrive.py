@@ -23,7 +23,7 @@ class GDriveDownloader(BaseDownloader):
         except ImportError:
             return False
 
-        return bool(self.source.gdrive_id)
+        return bool(self.source.get_gdrive_id())
 
     def download(self, resume: bool = True) -> list[Path]:
         """Download a file from Google Drive.
@@ -46,9 +46,9 @@ class GDriveDownloader(BaseDownloader):
                 "Install: pip install gdown"
             )
 
-        gdrive_id = self.source.gdrive_id
+        gdrive_id = self.source.get_gdrive_id()
         if not gdrive_id:
-            raise ValueError("gdrive_id is not set in source config")
+            raise ValueError("gdrive_id (or file_id) is not set in source config")
 
         url = f"https://drive.google.com/uc?id={gdrive_id}"
 

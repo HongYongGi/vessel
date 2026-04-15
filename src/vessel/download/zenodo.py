@@ -30,7 +30,7 @@ class ZenodoDownloader(BaseDownloader):
 
     def check_available(self) -> bool:
         """Check whether the Zenodo record is reachable."""
-        record_id = self.source.zenodo_record_id
+        record_id = self.source.get_zenodo_record_id()
         if not record_id:
             return False
         try:
@@ -52,7 +52,7 @@ class ZenodoDownloader(BaseDownloader):
         list[Path]
             Paths of downloaded files.
         """
-        record_id = self.source.zenodo_record_id
+        record_id = self.source.get_zenodo_record_id()
         if not record_id:
             raise ValueError("zenodo_record_id is not set in source config")
 

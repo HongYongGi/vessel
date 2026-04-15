@@ -3,25 +3,24 @@
 from __future__ import annotations
 
 import json
-import os
 from pathlib import Path
 
 import typer
 from rich.console import Console
 from rich.table import Table
 
+from vessel.core.paths import get_status_dir
+
 status_app = typer.Typer(help="Show download / preprocess status")
 console = Console()
 
 
-def _data_root() -> Path:
-    """Return the vessel data root directory."""
-    return Path(os.environ.get("VESSEL_DATA_ROOT", Path.home() / "vessel_data"))
-
-
 def _load_status(filename: str) -> dict:
     """Load a status JSON file from the .vessel metadata directory."""
-    status_path = _data_root() / ".vessel" / filename
+    try:
+        status_path = get_status_dir() / filename
+    except EnvironmentError:
+        return {}  # VESSEL_DATA_ROOT not set
     if not status_path.exists():
         return {}
     with open(status_path, "r", encoding="utf-8") as f:
@@ -49,9 +48,10 @@ def status() -> None:
 
     if not all_ids:
         console.print("[yellow]No status information found.[/yellow]")
-        console.print(
-            f"[dim]Looked in: {_data_root() / '.vessel'}[/dim]"
-        )
+        try:
+            console.print(f"[dim]Looked in: {get_status_dir()}[/dim]")
+        except EnvironmentError:
+            console.print("[dim]VESSEL_DATA_ROOT is not set.[/dim]")
         raise typer.Exit()
 
     table = Table(title="Dataset Status", show_lines=True)

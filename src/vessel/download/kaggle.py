@@ -30,7 +30,7 @@ class KaggleDownloader(BaseDownloader):
             return False
 
         # Verify the dataset identifier is configured
-        if not self.source.kaggle_dataset:
+        if not self.source.get_kaggle_dataset():
             return False
 
         return True
@@ -49,9 +49,9 @@ class KaggleDownloader(BaseDownloader):
         list[Path]
             Paths of downloaded files (typically a single zip).
         """
-        dataset = self.source.kaggle_dataset
+        dataset = self.source.get_kaggle_dataset()
         if not dataset:
-            raise ValueError("kaggle_dataset is not set in source config")
+            raise ValueError("kaggle_dataset (or dataset) is not set in source config")
 
         if not self.check_available():
             raise RuntimeError(

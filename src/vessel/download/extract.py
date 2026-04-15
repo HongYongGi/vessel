@@ -83,10 +83,17 @@ def _detect_format(path: Path) -> str:
 
 
 def _extract_zip(archive_path: Path, dest_dir: Path) -> None:
-    """Extract a ZIP archive with progress bar."""
+    """Extract a ZIP archive with progress bar and path traversal protection."""
+    resolved_dest = dest_dir.resolve()
     with zipfile.ZipFile(archive_path, "r") as zf:
         members = zf.infolist()
         for member in vessel_progress(members, desc=f"압축 해제: {archive_path.name}"):
+            # Security: reject path traversal attempts
+            target = (dest_dir / member.filename).resolve()
+            if not str(target).startswith(str(resolved_dest)):
+                raise ValueError(
+                    f"Path traversal detected in ZIP entry: {member.filename!r}"
+                )
             zf.extract(member, dest_dir)
 
 
